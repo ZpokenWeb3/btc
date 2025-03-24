@@ -1,0 +1,15 @@
+[package]
+name = "guest"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+guest = []
+
+#[[bin]]
+#name = "guest"
+#path = "./src/lib.rs"
+
+[dependencies]
+jolt = { package = "jolt-sdk", git = "https://github.com/a16z/jolt", features = ["guest-std"] }
+sha2 = "0.10.8"
