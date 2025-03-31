@@ -1,0 +1,69 @@
+{
+    "hash": "000000000000a609f0b57fc9f6b30797a02d0729f4a7835dd0c7fbb87387a836",
+    "height": 120098,
+    "ver": 1,
+    "prev_block": "00000000000037128b08b2107b91798d36f4beee8a988abceb21a5bc8b7dc47e",
+    "mrkl_root": "52ad07fed3fa937548201d652827aebff50c677bb05a5d75625c993c30099c95",
+    "time": 1303734910,
+    "bits": 453031340,
+    "nonce": 898029264,
+    "size": 215,
+    "weight": 860,
+    "tx": [
+        {
+            "hash": "52ad07fed3fa937548201d652827aebff50c677bb05a5d75625c993c30099c95",
+            "ver": 1,
+            "vin_sz": 1,
+            "vout_sz": 1,
+            "size": 134,
+            "weight": 536,
+            "fee": 0,
+            "relayed_by": "0.0.0.0",
+            "lock_time": 0,
+            "tx_index": 5263916850975531,
+            "double_spend": false,
+            "time": 1303734910,
+            "block_index": 120098,
+            "block_height": 120098,
+            "inputs": [
+                {
+                    "sequence": 4294967295,
+                    "witness": "",
+                    "script": "04acb5001b0121",
+                    "index": 0,
+                    "prev_out": {
+                        "type": 0,
+                        "spent": true,
+                        "value": 0,
+                        "spending_outpoints": [
+                            {
+                                "tx_index": 5263916850975531,
+                                "n": 0
+                            }
+                        ],
+                        "n": 4294967295,
+                        "tx_index": 0,
+                        "script": ""
+                    }
+                }
+            ],
+            "out": [
+                {
+                    "type": 0,
+                    "spent": true,
+                    "value": 5000000000,
+                    "spending_outpoints": [
+                        {
+                            "tx_index": 6165781503098625,
+                            "n": 0
+                        }
+                    ],
+                    "n": 0,
+                    "tx_index": 5263916850975531,
+                    "script": "41049dc9b104e10a99e9e59518d9d76b8a1a3a054e64283e1706fe679eefad237ec828cd4e2fd4d3da9cc90361d0f281798926c8115e11c0117bec8ce278befd52c8ac",
+                    "addr": "1GeLczuJS9pZaGX7Z35hDKU5aXXTYXrHLS"
+                }
+            ]
+        }
+    ]
+}
