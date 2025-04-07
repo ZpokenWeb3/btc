@@ -4,9 +4,9 @@ use sha2::{Digest, Sha256};
 use serde::{Serialize, Deserialize};
 
 #[jolt::provable]
-fn eq(hash1: &[u8], hash2: &[u8]) -> [u8; 32] {
+fn eq(hash1: &[u8], hash2: &[u8]) -> bool {
     if hash1.eq(hash2) && hash1.len() == 32 {
-        return hash1.try_into().expect("Expected exactly 32 bytes");
+        return true;
     }
     panic!("Hash mismatch: proof should be invalid!");
 }
@@ -27,7 +27,7 @@ pub fn get_block_hash(header: &[u8]) -> [u8; 32] {
 }
 
 #[jolt::provable]
-fn check_header_hash<T>(hash: &[u8], header: &[u8]) -> [u8; 32] {
+fn check_header_hash<T>(hash: &[u8], header: &[u8]) -> bool {
     let res = sha256(&sha256(header));
     eq(hash, &res)
 }
@@ -38,4 +38,40 @@ fn check_height(prev_height: u32, curr_height: u32) -> bool {
         return true;
     }
     panic!("Height mismatch: proof should be invalid!");
+}
+
+#[jolt::provable]
+fn build_merkle_root(mut hashes: Vec<[u8; 32]>) -> [u8; 32] {
+    if hashes.is_empty() {
+        return [0u8; 32];
+    }
+    while hashes.len() > 1 {
+        if hashes.len() % 2 != 0 {
+            hashes.push(*hashes.last().unwrap());
+        }
+
+        let mut new_level = Vec::new();
+        for i in (0..hashes.len()).step_by(2) {
+            let mut concat = Vec::new();
+            concat.extend_from_slice(&hashes[i]);
+            concat.extend_from_slice(&hashes[i + 1]);
+            new_level.push(sha256(&sha256(&concat)));
+        }
+        hashes = new_level;
+    }
+    hashes[0]
+}
+
+#[jolt::provable]
+fn check_tx(tx: &[u8; 32], merkle_root: &[u8], all_tx: Vec<[u8; 32]>) -> bool {
+    for i in all_tx.iter() {
+        if eq(i, tx) == true {
+            let expected_mrkl_root = build_merkle_root(all_tx);
+            return eq(&expected_mrkl_root, merkle_root);
+        }
+        else {
+            return false;
+        }
+    }
+    panic!("Merkle root mismatch: proof should be invalid!");
 }
