@@ -66,7 +66,7 @@ impl BTCHeader {
         Self(header.try_into().expect("Error converting to BTCHeader"))
     }
 
-    fn time(&self) -> u32 {
+    pub fn time(&self) -> u32 {
         u32::from_le_bytes(
             self.0[68..72]
                 .try_into()
@@ -74,19 +74,19 @@ impl BTCHeader {
         )
     }
 
-    fn bits(&self) -> [u8; 4] {
+    pub fn bits(&self) -> [u8; 4] {
         self.0[72..76]
             .try_into()
             .expect("Conversion should never fail")
     }
     
-    fn prev_hash(&self) -> [u8; 32] {
+    pub fn prev_hash(&self) -> [u8; 32] {
         self.0[4..36]
             .try_into()
             .expect("Conversion should never fail")
     }
 
-    fn merkle_root(&self) -> [u8; 32] {
+    pub fn merkle_root(&self) -> [u8; 32] {
         self.0[36..68]
             .try_into()
             .expect("Conversion should never fail")
